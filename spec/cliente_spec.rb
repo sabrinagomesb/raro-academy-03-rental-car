@@ -25,12 +25,6 @@ RSpec.describe Cliente do
         expect { Cliente.new("2223334440011", "Jose Silva") }.to raise_error(ErroValidacao, mensagem_erro)
         expect { Cliente.new("222333444a1", "Jose Silva") }.to raise_error(ErroValidacao, mensagem_erro)
       end
-
-      # it "Deve lançar erro quando cpf já existir" do
-      #   mensagem_erro = "Já existe um cliente cadastrado com esse CPF."
-
-      #   expect(Cliente.new("11122233300", "Jose Silva")).to raise_error(ErroValidacao, mensagem_erro)
-      # end
     end
 
     describe "Atualiza cadastro" do
