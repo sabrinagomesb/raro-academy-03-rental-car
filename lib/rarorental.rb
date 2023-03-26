@@ -3,6 +3,7 @@
 require_relative "rarorental/version"
 
 require_relative "./rarorental/entidades/cliente"
+require_relative "./rarorental/entidades/veiculo"
 require_relative "./rarorental/errors/erro_validacao"
 
 module Rarorental
