@@ -1,0 +1,2 @@
+class ErroValidacao < StandardError
+end

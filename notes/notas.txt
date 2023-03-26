@@ -1,0 +1,27 @@
+
+Gerenciador de Locação "1"-->"1" Estoque
+Gerenciador de Locação "1"-->"*" Cliente
+Gerenciador de Locação "1"-->"*" Reserva
+Estoque "1"-->"*" Veículo
+Veículo "1"-->"1" Reserva
+Reserva "1"-->"1" Cliente
+
+
+
+
+Reservas
+Gerenciador de locação
+Estoque
+Veículos
+Clientes
+Reservas > Locação
+
+
+  Campeonato "1"-->"*" Equipe
+    Campeonato "1"-->"*" Rodada
+    Campeonato "1"-->"1" Classificacao
+    Partida "1"-->"1" Equipe
+    Partida "1"-->"1" Equipe
+    Rodada "1"-->"*" Partida
+    Classificacao "1"--"1" Equipe
+

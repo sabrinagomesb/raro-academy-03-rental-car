@@ -1,0 +1,47 @@
++++ Requisitos Funcionais:
+Os requisitos funcionais são as ->funcionalidades específicas<- que o sistema deve fornecer para atender às NECESSIDADES DO USUÁRIO.
+Esses requisitos são geralmente descritos em termos de entradas, saídas e comportamento do sistema.
+
+-> Exemplos de requisitos funcionais para um projeto backend podem incluir:
+Autenticação e autorização de usuários; Criação, leitura, atualização e exclusão de dados (CRUD); Geração de relatórios e análises de dados
+Integração com outros sistemas externos; Implementação de regras de negócio específicas.
+
+- Sistema de reserva online de veículos com disponibilidade em tempo real
+- Sistema de gerenciamento de frota de veículos, incluindo informações sobre manutenção e reparos
+- Processo de check-in e check-out de veículos, incluindo a verificação de danos e condições do veículo
+Sistema de cobrança automático de tarifas, incluindo cálculo de impostos e taxas adicionais
+- Geração de relatórios de uso da frota e desempenho financeiro
+
++++ Requisitos Não Funcionais:
+Os requisitos não funcionais são as características que o sistema deve ter para atender às expectativas de desempenho, segurança, escalabilidade, disponibilidade e outras necessidades operacionais. Esses requisitos geralmente não são diretamente visíveis para o usuário, mas são críticos para o funcionamento do sistema.
+
+-> Exemplos de requisitos não funcionais para um projeto backend podem incluir:
+Tempo de resposta mínimo para as requisições do usuário; Segurança de dados e informações sensíveis; Disponibilidade do sistema durante o tempo de operação; Escalabilidade para suportar grandes volumes de usuários e dados; Facilidade de manutenção e atualização do sistema
+
+- Sistema de alta disponibilidade, com tempo de resposta mínimo para requisições de reserva
+- Segurança de dados do cliente, incluindo informações pessoais e de pagamento
+- Escalabilidade para lidar com picos de demanda durante períodos de alta temporada
+- Facilidade de manutenção e atualização do sistema, incluindo backups regulares de dados
+
+
++++ Regras de Negócio:
+- Restrições de idade para alugar um veículo, incluindo limites de idade mínima e taxas adicionais para motoristas jovens
+- Restrições de tempo para aluguel de veículos, incluindo tarifas de aluguel por hora ou por dia // Raro Rental há tarifas por dia, assim como, a possibilidade, de alugar somente por diária.
+- Requisitos de seguro, incluindo a obrigatoriedade de seguro para danos a terceiros e opções adicionais de cobertura para o próprio veículo
+- Política de combustível, incluindo opções de combustível pré-pago ou de reabastecimento próprio pelo cliente
+- Requisitos de documentação, incluindo carteira de motorista válida e um cartão de crédito válido para pagamento.
+
+================================================================================================================================
+
+------> Como construir um diagrama de classes <------
+[ ] Identificar todas as classes que participam da solução em software
+[ ] Isso é feito pela análise dos diagramas de interação
+[ ] Inclui-las num diagrama de classes
+[ ] Duplicar os atributos, a partir das entidades associadas no modelo conceitual
+[ ] Adicionar nomes de métodos descobertos nos diagramas de interação
+[ ] Adicionar informação de tipo aos atributos e métodos
+[ ] Adicionar as associações necessárias para a visibilidade de atributos
+[ ] Adicionar setas às associações para indicar a direção da visibilidade de atributos
+[ ] Adicionar linhas de relações de dependência para indicar a visibilidade que não seja de atributo
+
+===> Cada tipo de classe é representado como um retângulo com três compartimentos para o nome da classe, atributos e operações.
