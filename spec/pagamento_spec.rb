@@ -14,17 +14,5 @@ RSpec.describe Pagamento do
       expect(pagamento.data).to eq(reserva.data_fim)
       expect(pagamento.valor).to eq(reserva.preco)
     end
-
-    #   context "Quando parametros inválidos" do
-    #     it "Deve lançar erro quando a placa for inválida" do
-    #       mensagem_erro = "Placa deve conter 3 digitos alfanumericos seguidos de hifen e 4 digitos alfanumericos. Ex: CAR-1234"
-
-    #       expect { Veiculo.new("CAR1234", "Fiat", "Mobi", 2020, 100) }.to raise_error(ErroValidacao, mensagem_erro)
-
-    #       expect { Veiculo.new("CAR1-234", "Fiat", "Mobi", 2020, 100) }.to raise_error(ErroValidacao, mensagem_erro)
-
-    #       expect { Veiculo.new("1234", "Fiat", "Mobi", 2020, 100) }.to raise_error(ErroValidacao, mensagem_erro)
-    #     end
-    #   end
   end
 end
