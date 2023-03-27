@@ -1,5 +1,5 @@
 class Cliente
-  attr_accessor :cpf, :nome
+  attr_reader :cpf, :nome
 
   def initialize(cpf, nome)
     valida(cpf, nome)
