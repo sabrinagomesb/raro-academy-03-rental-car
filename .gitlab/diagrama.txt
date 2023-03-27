@@ -3,22 +3,31 @@ classDiagram
     Gerenciador "1"-->"1" Estoque
     Gerenciador "1"-->"*" Cliente
     Gerenciador "1"-->"*" Reserva
+    Gerenciador "1"-->"*" Locacao
     Gerenciador "1"-->"*" Pagamento
+
     Estoque "1"-->"*" Veiculo
+
+    Locacao "1"-->"1" Reserva
     Reserva "1"-->"1" Veiculo
+    Reserva "1"<|--	"1" Locacao
     Cliente "1"-->"1" Reserva
 
     class Gerenciador {
         +estoque: Estoque
         clientes: Cliente[]
         reservas: Reserva[]
+        locacoes: Reserva[]
         pagamentos: Pagamento[]
 
         cadastra_cliente(Cliente): void
         atualiza_cliente(Cliente, cpf, nome): void
+        remove_cliente(Cliente): void
 
-        cria_reserva(Cliente, Veiculo, data_inicio, data_fim): Reserva
-        remove_reserva(Reserva)
+        cadastra_reserva(Reserva)
+        cancela_reserva(Reserva)
+        inicia_locacao(Reserva)
+        finaliza_locacao(Locacao)
 
         gera_tabela_precos(): string
         gera_relatorio_mensal(mes): string
@@ -27,15 +36,15 @@ classDiagram
 
     class Estoque {
         veiculos: Veiculo[]
-        cadastra_veiculo(): void
-        remove_veiculo(): void
-        veiculos_disponiveis(): Veiculo[]
+        cadastra_veiculo(Veiculo): void
+        remove_veiculo(Veiculo): void
+        veiculos_disponivels(data_inicio, data_fim): Veiculo[]
     }
 
-     class Cliente {
+    class Cliente {
         +cpf: string
         +nome: string
-        reserva: Reserva
+        reservas: Reserva[]
         atualiza_cadastro()
     }
 
@@ -46,11 +55,12 @@ classDiagram
         +ano: integer
         +diaria_padrao: float
         diaria_desconto: float
-        disponivel: boolean
+        reservas: Reservas[]
+        locacao: Locacao[]
     }
 
     class Pagamento {
-        +reserva: Reserva
+        +reserva: Locacao
         +dateFormat:data
         +float: valor
     }
@@ -60,6 +70,14 @@ classDiagram
         +veiculo: Veiculo
         +data_inicio: dateFormat
         +data_fim: dateFormat
-        inicia_locacao()
-        finaliza_locacao(): Pagamento
+        +preco: float
+    }
+
+    class Locacao {
+        +cliente: Cliente
+        +veiculo: Veiculo
+        +data_inicio: dateFormat
+        +data_fim: dateFormat
+        +preco: float
+        realiza_pagamento(): Pagamento
     }
