@@ -1,9 +1,9 @@
 class Pagamento
-  attr_accessor :reserva, :data, :valor
+  attr_accessor :locacao, :data, :preco
 
-  def initialize(reserva, data, valor)
-    @reserva = reserva
+  def initialize(locacao, data, preco)
+    @locacao = locacao
     @data = data
-    @valor = valor
+    @preco = preco
   end
 end
