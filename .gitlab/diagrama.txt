@@ -1,0 +1,65 @@
+classDiagram
+
+    Gerenciador "1"-->"1" Estoque
+    Gerenciador "1"-->"*" Cliente
+    Gerenciador "1"-->"*" Reserva
+    Gerenciador "1"-->"*" Pagamento
+    Estoque "1"-->"*" Veiculo
+    Reserva "1"-->"1" Veiculo
+    Cliente "1"-->"1" Reserva
+
+    class Gerenciador {
+        +estoque: Estoque
+        clientes: Cliente[]
+        reservas: Reserva[]
+        pagamentos: Pagamento[]
+
+        cadastra_cliente(Cliente): void
+        atualiza_cliente(Cliente, cpf, nome): void
+
+        cria_reserva(Cliente, Veiculo, data_inicio, data_fim): Reserva
+        remove_reserva(Reserva)
+
+        gera_tabela_precos(): string
+        gera_relatorio_mensal(mes): string
+        gera_veiculos_mais_queridos(): string
+    }
+
+    class Estoque {
+        veiculos: Veiculo[]
+        cadastra_veiculo(): void
+        remove_veiculo(): void
+        veiculos_disponivels(): Veiculo[]
+    }
+
+    class Cliente {
+        +cpf: string
+        +nome: string
+        reserva: Reserva
+        atualiza_cadastro()
+    }
+
+    class Veiculo {
+        +placa: string
+        +fabricante: string
+        +modelo: string
+        +ano: integer
+        +diaria_padrao: float
+        diaria_desconto: float
+        disponivel: boolean
+    }
+
+    class Pagamento {
+        +reserva: Locacao
+        +dateFormat:data
+        +float: valor
+    }
+
+    class Reserva {
+        +cliente: Cliente
+        +veiculo: Veiculo
+        +data_inicio: dateFormat
+        +data_fim: dateFormat
+        inicia_locacao()
+        finaliza_locacao(): Pagamento
+    }
