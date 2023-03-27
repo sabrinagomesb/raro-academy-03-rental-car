@@ -29,10 +29,10 @@ classDiagram
         veiculos: Veiculo[]
         cadastra_veiculo(): void
         remove_veiculo(): void
-        veiculos_disponivels(): Veiculo[]
+        veiculos_disponiveis(): Veiculo[]
     }
 
-    class Cliente {
+     class Cliente {
         +cpf: string
         +nome: string
         reserva: Reserva
@@ -50,7 +50,7 @@ classDiagram
     }
 
     class Pagamento {
-        +reserva: Locacao
+        +reserva: Reserva
         +dateFormat:data
         +float: valor
     }
