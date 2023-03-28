@@ -30,9 +30,9 @@ RSpec.describe Reserva do
       cliente2 = Cliente.new("88855522200", "Ana Silva")
       veiculo2 = Veiculo.new("CAR-4321", "Fiat", "Argo", 2019, 200)
       data_inicio2 = Date.new(2022, 03, 01)
-      data_fim2 = Date.new(2022, 03, 07)
+      data_fim2 = Date.new(2022, 03, 10)
       reserva2 = Reserva.new(cliente2, veiculo2, data_inicio2, data_fim2)
-      expect(reserva2.calcula_preco).to eq(1200)
+      expect(reserva2.calcula_preco).to eq(1620)
     end
   end
 end
