@@ -1,16 +1,19 @@
 class Cliente
-  attr_reader :cpf, :nome
+  attr_reader :cpf, :nome,
+              :reservas, :locacoes
 
   def initialize(cpf, nome)
     valida(cpf, nome)
+
     @cpf = cpf
     @nome = nome
+    @reservas = []
+    @locacoes = []
   end
 
-  def atualiza_cadastro(cpf, nome)
-    valida(cpf, nome)
-    @cpf = cpf
-    @nome = nome
+  def atualiza_cadastro(novo_nome)
+    valida(@cpf, novo_nome)
+    @nome = novo_nome
   end
 
   private
