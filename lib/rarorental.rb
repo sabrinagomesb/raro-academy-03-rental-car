@@ -5,6 +5,7 @@ require_relative "rarorental/version"
 
 require_relative "./rarorental/entidades/cliente"
 require_relative "./rarorental/entidades/estoque"
+require_relative "./rarorental/entidades/gerenciador"
 require_relative "./rarorental/entidades/locacao"
 require_relative "./rarorental/entidades/reserva"
 require_relative "./rarorental/entidades/pagamento"
