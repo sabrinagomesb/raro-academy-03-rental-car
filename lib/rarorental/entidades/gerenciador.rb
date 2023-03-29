@@ -11,28 +11,50 @@ class Gerenciador
   end
 
   def cadastra_reserva(reserva)
-    cliente = reserva.cliente
-    veiculo = reserva.veiculo
-    data_inicio = reserva.data_inicio
-    data_fim = reserva.data_fim
+    raise ErroValidacao.new("Cliente já possuiu reserva ou locacao no momento") if @status.has_key?(reserva.cliente.cpf)
 
-    raise ErroValidacao.new("Cliente já possuiu reserva ou locacao no momento") if @status.has_key?(cliente.cpf)
-
-    raise ErroValidacao.new("Veiculo indisponivel nas datas da reserva solicitada") unless veiculo.disponivel?(data_inicio, data_fim)
+    raise ErroValidacao.new("Veiculo indisponivel nas datas da reserva solicitada") unless reserva.veiculo.disponivel?(reserva.data_inicio, reserva.data_fim)
 
     @reservas << reserva
-    veiculo.reservas << reserva
-    cliente.reservas << reserva
-    @status[cliente.cpf] = reserva
+    reserva.veiculo.reservas << reserva
+    reserva.cliente.reservas << reserva
+    @status[reserva.cliente.cpf] = reserva
   end
 
   def cancela_reserva(reserva)
+    raise ErroValidacao.new("Reserva não cadastrada") unless @reservas.include?(reserva)
+
+    raise ErroValidacao.new("Reserva só pode ser cancelada 1 dia antes da data de inicio") if Date.today > reserva.data_inicio - 1
+
+    @reservas.delete(reserva)
+    reserva.veiculo.reservas.delete(reserva)
+    reserva.cliente.reservas.delete(reserva)
+    @status.delete(reserva.cliente.cpf)
   end
 
   def inicia_locacao(reserva)
+    raise ErroValidacao.new("Reserva não cadastrada") unless @reservas.include?(reserva)
+
+    locacao = Locacao.new(reserva.cliente, reserva.veiculo, reserva.data_inicio, reserva.data_fim)
+
+    cancela_reserva(reserva)
+
+    @locacoes << locacao
+    locacao.veiculo.locacoes << locacao
+    locacao.cliente.locacoes << locacao
+    @status[locacao.cliente.cpf] = locacao
+
+    locacao
   end
 
   def finaliza_locacao(locacao)
+    raise ErroValidacao.new("Locação não inicializada") unless @locacoes.include?(locacao)
+
+    @status.delete(locacao.cliente.cpf)
+
+    pagamento = Pagamento.new(locacao, locacao.data_fim, locacao.preco)
+    @pagamentos << pagamento
+    pagamento
   end
 
   def cadastra_cliente(cliente)
