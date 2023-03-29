@@ -21,6 +21,8 @@ RSpec.describe "Gerenciador - Ranking" do
       @cliente_4 = Cliente.new("44455566633", "Ana Maria")
       @cliente_5 = Cliente.new("55566677744", "Pedro Carlos")
       @cliente_6 = Cliente.new("66677788855", "Paulo José")
+      @cliente_7 = Cliente.new("78454541252", "Joao José")
+      @cliente_8 = Cliente.new("98745654101", "Marcio Carlos José")
 
       @gerenciador.cadastra_cliente(@cliente_1)
       @gerenciador.cadastra_cliente(@cliente_2)
@@ -28,6 +30,8 @@ RSpec.describe "Gerenciador - Ranking" do
       @gerenciador.cadastra_cliente(@cliente_4)
       @gerenciador.cadastra_cliente(@cliente_5)
       @gerenciador.cadastra_cliente(@cliente_6)
+      @gerenciador.cadastra_cliente(@cliente_7)
+      @gerenciador.cadastra_cliente(@cliente_8)
 
       @reserva_1 = Reserva.new(@cliente_1, @veiculo_1, Date.today + 10, Date.today + 18)
       @reserva_2 = Reserva.new(@cliente_2, @veiculo_1, Date.today + 20, Date.today + 28)
@@ -35,6 +39,8 @@ RSpec.describe "Gerenciador - Ranking" do
       @reserva_4 = Reserva.new(@cliente_4, @veiculo_2, Date.today + 40, Date.today + 48)
       @reserva_5 = Reserva.new(@cliente_5, @veiculo_3, Date.today + 50, Date.today + 58)
       @reserva_6 = Reserva.new(@cliente_6, @veiculo_3, Date.today + 60, Date.today + 68)
+      @reserva_7 = Reserva.new(@cliente_7, @veiculo_3, Date.today + 70, Date.today + 78)
+      @reserva_8 = Reserva.new(@cliente_8, @veiculo_3, Date.today + 80, Date.today + 88)
 
       @gerenciador.cadastra_reserva(@reserva_1)
       @gerenciador.cadastra_reserva(@reserva_2)
@@ -42,11 +48,13 @@ RSpec.describe "Gerenciador - Ranking" do
       @gerenciador.cadastra_reserva(@reserva_4)
       @gerenciador.cadastra_reserva(@reserva_5)
       @gerenciador.cadastra_reserva(@reserva_6)
+      @gerenciador.cadastra_reserva(@reserva_7)
+      @gerenciador.cadastra_reserva(@reserva_8)
 
       @gerenciador.inicia_locacao(@reserva_1)
       @gerenciador.inicia_locacao(@reserva_3)
       @gerenciador.inicia_locacao(@reserva_4)
-      @gerenciador.inicia_locacao(@reserva_5)
+      @gerenciador.inicia_locacao(@reserva_7)
 
       @gerenciador.finaliza_locacao(@gerenciador.locacoes[0])
       @gerenciador.finaliza_locacao(@gerenciador.locacoes[1])
@@ -56,12 +64,21 @@ RSpec.describe "Gerenciador - Ranking" do
     it "Deve gerar e atualizar ranking" do
       expect(@gerenciador.ranking[@veiculo_1]).to eq(3)
       expect(@gerenciador.ranking[@veiculo_2]).to eq(1)
-      expect(@gerenciador.ranking[@veiculo_3]).to eq(2)
-      expect(@gerenciador.ranking[@veiculo_4]).to eq(0)
+      expect(@gerenciador.ranking[@veiculo_3]).to eq(4)
+      expect(@gerenciador.ranking[@veiculo_4]).to eq(nil)
+    end
+
+    it "Deve ordenar por mais querido - o que possui mais reservas e locações" do
+      order_values = @gerenciador.ranking.values
+
+      expect(order_values[0]).to eq(4)
+      expect(order_values[1]).to eq(3)
+      expect(order_values[2]).to eq(1)
+      expect(order_values[3]).to eq(nil)
     end
 
     it "Deve imprimir a tabela de ranking" do
-      tabela = "|-----------------------------------------------------------------------------------|\n|                                MODELOS MAIS QUERIDOS                              |\n|-----------------------------------------------------------------------------------|\n|  #  | Fabricante           | Modelo          | Ano  | Reservas | Locações | Total |\n|-----|----------------------|-----------------|------|----------|----------|-------|\n|  3  | Fiat                 | Mobi            | 2021 | 1        | 2        | 3     |\n|  2  | Hyundai              | HB20            | 2019 | 1        | 1        | 2     |\n|  1  | Fiat                 | Argo            | 2022 | 0        | 1        | 1     |\n|-----|----------------------|-----------------|------|----------|----------|-------|\n"
+      tabela = "|-----------------------------------------------------------------------------------|\n|                                MODELOS MAIS QUERIDOS                              |\n|-----------------------------------------------------------------------------------|\n|  #  | Fabricante           | Modelo          | Ano  | Reservas | Locações | Total |\n|-----|----------------------|-----------------|------|----------|----------|-------|\n|  4  | Hyundai              | HB20            | 2019 | 3        | 1        | 4     |\n|  3  | Fiat                 | Mobi            | 2021 | 1        | 2        | 3     |\n|  1  | Fiat                 | Argo            | 2022 | 0        | 1        | 1     |\n|-----|----------------------|-----------------|------|----------|----------|-------|\n"
 
       expect { @gerenciador.imprime_ranking }.to output(tabela).to_stdout
     end

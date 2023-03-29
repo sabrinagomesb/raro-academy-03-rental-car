@@ -123,9 +123,7 @@ class Gerenciador
     end
 
     tabela = barra + titulo + barra + cabecalho + divisoria + dados.join + divisoria
-
     print tabela
-    tabela
   end
 
   private
@@ -139,6 +137,9 @@ class Gerenciador
     @locacoes.map do |locacao|
       @ranking[locacao.veiculo] += 1
     end
+
+    ranking_ordenado = @ranking.dup.sort_by { |key, value| value }.reverse.to_h
+    @ranking = ranking_ordenado
   end
 
   def gera_faturamento
