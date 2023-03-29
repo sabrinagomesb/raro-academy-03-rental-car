@@ -19,6 +19,7 @@ classDiagram
         clientes: Cliente[]
         reservas: Reserva[]
         locacoes: Locacao[]
+        pagamentos: Pagamento[]
         faturamento: Hash
         status: Hash
 
@@ -31,7 +32,7 @@ classDiagram
         inicia_locacao(Reserva)
         finaliza_locacao(Locacao)
 
-        gera_relatorio_mensal()
+        gera_faturamento()
         gera_veiculos_mais_queridos()
     }
 
@@ -39,16 +40,18 @@ classDiagram
         veiculos: Veiculo[]
         precos: Hash
         cadastra_veiculo(Veiculo): void
+        atualiza_diaria_veiculo(veiculo, nova_diaria)
         remove_veiculo(Veiculo): void
-        veiculos_disponivels(data_inicio, data_fim): Veiculo[]
-        gera_tabela_precos()
+        veiculos_disponiveis(data_inicio, data_fim): Veiculo[]
+        gera_precos()
     }
 
     class Cliente {
         +cpf: string
         +nome: string
         reservas: Reserva[]
-        atualiza_cadastro()
+        locacoes: Locacao[]
+        atualiza_cadastro(novo_nome)
     }
 
     class Veiculo {
@@ -61,10 +64,11 @@ classDiagram
         reservas: Reservas[]
         locacoes: Locacao[]
         disponivel?(data_inicio, data_fim)
+        atualiza_diarias(diaria_padrao_nova)
     }
 
     class Pagamento {
-        +reserva: Locacao
+        +locacao: Locacao
         +dateFormat:data
         +float: valor
     }
