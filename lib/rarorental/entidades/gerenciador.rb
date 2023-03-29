@@ -97,11 +97,8 @@ class Gerenciador
       meses_strings = []
 
       meses.each do |mes, valor|
-        string = "| #{@faturamento.key(meses)} | #{mes.to_s.ljust(3)} | #{formata_em_real(valor).ljust(17)} |\n"
+        string = "| #{@faturamento.key(meses)} | #{mes.to_s.ljust(3)} | #{UtilsFormat.formata_em_real(valor).ljust(17)} |\n"
         meses_strings << string
-
-        string += "#{meses.key(valor)}"
-        string += "#{valor}"
       end
       meses_strings
     end
@@ -123,6 +120,7 @@ class Gerenciador
     end
 
     tabela = barra + titulo + barra + cabecalho + divisoria + dados.join + divisoria
+
     print tabela
   end
 
@@ -149,9 +147,5 @@ class Gerenciador
 
       @faturamento[data.year][data.mon] += preco
     end
-  end
-
-  def formata_em_real(valor)
-    "R$ #{"%.2f" % valor}".gsub(".", ",").reverse.gsub(/(\d{3})(?=\d)/, '\\1.').reverse
   end
 end

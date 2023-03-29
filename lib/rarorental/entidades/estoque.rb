@@ -49,7 +49,7 @@ class Estoque
     divisoria = "|------------------------------------------|---------------|-------------------|\n"
 
     dados = @precos.map do |key, value|
-      "| #{value[:modelo].ljust(40)} | #{value[:diaria_padrao].to_s.ljust(13)} | #{value[:diaria_desconto].to_s.ljust(17)} |\n"
+      "| #{value[:modelo].ljust(40)} | #{UtilsFormat.formata_em_real(value[:diaria_padrao]).ljust(13)} | #{UtilsFormat.formata_em_real(value[:diaria_desconto]).ljust(17)} |\n"
     end
 
     tabela = divisoria + cabecalho + divisoria + dados.join + divisoria
