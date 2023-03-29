@@ -12,6 +12,30 @@ class Gerenciador
     @faturamento = Hash.new { |hash, key| hash[key] = Hash.new { |hash, key| hash[key] = 0 } }
   end
 
+  def imprime_faturamento
+    cabecalho = "| Ano  | Mes |    Valor Total    |\n"
+    divisoria = "|------|-----|-------------------|\n"
+
+    dados = @faturamento.map do |ano, meses|
+      meses_strings = []
+
+      meses.each do |mes, valor|
+        string = "| #{@faturamento.key(meses)} | #{mes.to_s.ljust(3)} | #{formata_em_real(valor).ljust(17)} |\n"
+        meses_strings << string
+
+        string += "#{meses.key(valor)}"
+        string += "#{valor}"
+      end
+      meses_strings
+    end
+
+    tabela = divisoria + cabecalho + divisoria + dados.flatten.join + divisoria
+
+    p tabela
+    print tabela
+    tabela
+  end
+
   def cadastra_reserva(reserva)
     raise ErroValidacao.new("Cliente já possuiu reserva ou locacao no momento") if @status.has_key?(reserva.cliente.cpf)
 
@@ -93,5 +117,9 @@ class Gerenciador
 
       @faturamento[data.year][data.mon] += preco
     end
+  end
+
+  def formata_em_real(valor)
+    "R$ #{"%.2f" % valor}".gsub(".", ",").reverse.gsub(/(\d{3})(?=\d)/, '\\1.').reverse
   end
 end
