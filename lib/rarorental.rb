@@ -10,6 +10,7 @@ require_relative "./rarorental/entidades/locacao"
 require_relative "./rarorental/entidades/reserva"
 require_relative "./rarorental/entidades/pagamento"
 require_relative "./rarorental/entidades/veiculo"
+require_relative "./rarorental/entidades/utils_format"
 require_relative "./rarorental/errors/erro_validacao"
 
 module Rarorental
