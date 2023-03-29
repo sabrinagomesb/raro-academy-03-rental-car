@@ -1,7 +1,7 @@
 class Veiculo
   attr_accessor :placa, :fabricante, :modelo, :ano,
-                :diaria_padrao, :diaria_desconto,
                 :reservas, :locacoes
+  attr_reader :diaria_padrao, :diaria_desconto
 
   def initialize(placa, fabricante, modelo, ano, diaria_padrao)
     valida(placa)
