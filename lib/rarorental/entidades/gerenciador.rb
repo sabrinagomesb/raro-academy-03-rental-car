@@ -1,5 +1,5 @@
 class Gerenciador
-  attr_accessor :estoque, :clientes,
+  attr_accessor :estoque, :clientes, :ranking,
                 :pagamentos, :faturamento,
                 :reservas, :locacoes, :status
 
@@ -8,32 +8,9 @@ class Gerenciador
     @reservas = []
     @locacoes = []
     @pagamentos = []
+    @ranking = Hash.new { |hash, key| hash[key] = 0 }
     @status = Hash.new { |hash, key| hash[key] = nil }
     @faturamento = Hash.new { |hash, key| hash[key] = Hash.new { |hash, key| hash[key] = 0 } }
-  end
-
-  def imprime_faturamento
-    cabecalho = "| Ano  | Mes |    Valor Total    |\n"
-    divisoria = "|------|-----|-------------------|\n"
-
-    dados = @faturamento.map do |ano, meses|
-      meses_strings = []
-
-      meses.each do |mes, valor|
-        string = "| #{@faturamento.key(meses)} | #{mes.to_s.ljust(3)} | #{formata_em_real(valor).ljust(17)} |\n"
-        meses_strings << string
-
-        string += "#{meses.key(valor)}"
-        string += "#{valor}"
-      end
-      meses_strings
-    end
-
-    tabela = divisoria + cabecalho + divisoria + dados.flatten.join + divisoria
-
-    p tabela
-    print tabela
-    tabela
   end
 
   def cadastra_reserva(reserva)
@@ -45,6 +22,7 @@ class Gerenciador
     reserva.veiculo.reservas << reserva
     reserva.cliente.reservas << reserva
     @status[reserva.cliente.cpf] = reserva
+    gera_ranking
   end
 
   def cancela_reserva(reserva)
@@ -56,6 +34,7 @@ class Gerenciador
     reserva.veiculo.reservas.delete(reserva)
     reserva.cliente.reservas.delete(reserva)
     @status.delete(reserva.cliente.cpf)
+    gera_ranking
   end
 
   def inicia_locacao(reserva)
@@ -69,6 +48,7 @@ class Gerenciador
     locacao.veiculo.locacoes << locacao
     locacao.cliente.locacoes << locacao
     @status[locacao.cliente.cpf] = locacao
+    gera_ranking
 
     locacao
   end
@@ -108,7 +88,57 @@ class Gerenciador
     @clientes.delete(cliente)
   end
 
+  def imprime_faturamento
+    cabecalho = "| Ano  | Mes |    Valor Total    |\n"
+    divisoria = "|------|-----|-------------------|\n"
+
+    dados = @faturamento.map do |ano, meses|
+      meses_strings = []
+
+      meses.each do |mes, valor|
+        string = "| #{@faturamento.key(meses)} | #{mes.to_s.ljust(3)} | #{formata_em_real(valor).ljust(17)} |\n"
+        meses_strings << string
+
+        string += "#{meses.key(valor)}"
+        string += "#{valor}"
+      end
+      meses_strings
+    end
+
+    tabela = divisoria + cabecalho + divisoria + dados.flatten.join + divisoria
+
+    print tabela
+    tabela
+  end
+
+  def imprime_ranking
+    titulo = "|                                MODELOS MAIS QUERIDOS                              |\n"
+    cabecalho = "|  #  | Fabricante           | Modelo          | Ano  | Reservas | Locações | Total |\n"
+    divisoria = "|-----|----------------------|-----------------|------|----------|----------|-------|\n"
+    barra = "|-----------------------------------------------------------------------------------|\n"
+
+    dados = @ranking.map do |key, value|
+      "|  #{value}  | #{key.fabricante.ljust(20)} | #{key.modelo.ljust(15)} | #{key.ano} | #{key.reservas.size.to_s.ljust(8)} | #{key.locacoes.size.to_s.ljust(8)} | #{(key.locacoes.size + key.reservas.size).to_s.ljust(5)} |\n"
+    end
+
+    tabela = barra + titulo + barra + cabecalho + divisoria + dados.join + divisoria
+
+    print tabela
+    tabela
+  end
+
   private
+
+  def gera_ranking
+    @ranking = Hash.new { |hash, key| hash[key] = 0 }
+
+    @reservas.map do |reserva|
+      @ranking[reserva.veiculo] += 1
+    end
+    @locacoes.map do |locacao|
+      @ranking[locacao.veiculo] += 1
+    end
+  end
 
   def gera_faturamento
     @pagamentos.map do |pagamento|
