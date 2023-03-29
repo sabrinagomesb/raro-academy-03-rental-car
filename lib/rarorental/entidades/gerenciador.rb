@@ -56,8 +56,8 @@ class Gerenciador
 
     pagamento = Pagamento.new(locacao, locacao.data_fim, locacao.preco)
     @pagamentos << pagamento
+    gera_faturamento
     pagamento
-    # gera_faturamento
   end
 
   def cadastra_cliente(cliente)
@@ -87,5 +87,11 @@ class Gerenciador
   private
 
   def gera_faturamento
+    @pagamentos.map do |pagamento|
+      data = pagamento.data
+      preco = pagamento.preco
+
+      @faturamento[data.year][data.mon] += preco
+    end
   end
 end
