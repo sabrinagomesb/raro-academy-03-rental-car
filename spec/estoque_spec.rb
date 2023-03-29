@@ -139,19 +139,30 @@ RSpec.describe Estoque do
     end
   end
 
-  describe "Gera preços" do
-    let(:estoque) { Estoque.new }
+  describe "Gera tabela de preços" do
+    before(:all) do
+      @estoque = Estoque.new
+      @veiculo_1 = Veiculo.new("RAR-1234", "Fiat", "Mobi", 2021, 100)
+      @veiculo_2 = Veiculo.new("ABC-4444", "Fiat", "Argo", 2022, 300)
+      @veiculo_3 = Veiculo.new("FOR-7799", "Hyundai", "HB20", 2019, 200)
+      @estoque.cadastra_veiculo(@veiculo_1)
+      @estoque.cadastra_veiculo(@veiculo_2)
+      @estoque.cadastra_veiculo(@veiculo_3)
+    end
 
     it "Deve gerar e atualizar tabela de preços" do
-      veiculo_1 = Veiculo.new("RAR-1234", "Fiat", "Mobi", 2021, 100)
-      estoque.cadastra_veiculo(veiculo_1)
+      precos = {
+        "RAR-1234" => { :modelo => "Fiat Mobi - 2021", :diaria_padrao => 100.0, :diaria_desconto => 90.0 },
+        "FOR-7799" => { :modelo => "Hyundai HB20 - 2019", :diaria_padrao => 200.0, :diaria_desconto => 180.0 },
+        "ABC-4444" => { :modelo => "Fiat Argo - 2022", :diaria_padrao => 300.0, :diaria_desconto => 270.0 },
+      }
 
-      precos = Hash.new { |hash, key| hash[key] = Hash.new { |hash, key| hash[key] = 0 } }
+      expect(@estoque.precos).to eq(precos)
+    end
+    it "Deve imprimir a tabela com os preços" do
+      tabela = "|------------------------------------------|---------------|-------------------|\n| Modelo                                   | Diária Padrão |  Diária Desconto  |\n|------------------------------------------|---------------|-------------------|\n| Fiat Mobi - 2021                         | 100.0         | 90.0              |\n| Fiat Argo - 2022                         | 300.0         | 270.0             |\n| Hyundai HB20 - 2019                      | 200.0         | 180.0             |\n|------------------------------------------|---------------|-------------------|\n"
 
-      precos[veiculo_1.placa][:diaria_padrao] = veiculo_1.diaria_padrao
-      precos[veiculo_1.placa][:diaria_desconto] = veiculo_1.diaria_desconto
-
-      expect(estoque.precos).to eq(precos)
+      expect { @estoque.imprime_tabela_precos }.to output(tabela).to_stdout
     end
   end
 end
