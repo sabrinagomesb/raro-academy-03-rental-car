@@ -1,4 +1,3 @@
-
 - [Raro Rental Cars](#raro-rental-cars)
   - [Projeto](#projeto)
     - [Diagrama](#diagrama)
@@ -7,6 +6,8 @@
     - [Não deve ser possível](#não-deve-ser-possível)
     - [Deve ser garantido](#deve-ser-garantido)
   - [Considerações importantes](#considerações-importantes)
+    - [Resoluções de problemas](#resoluções-de-problemas)
+    - [Descrição dos testes](#descrição-dos-testes)
     - [Métodos de impressão](#métodos-de-impressão)
       - [Método de imprimir tabela de faturamento no terminal](#método-de-imprimir-tabela-de-faturamento-no-terminal)
       - [Método de imprimir tabela de tabela de preços no terminal](#método-de-imprimir-tabela-de-tabela-de-preços-no-terminal)
@@ -17,11 +18,11 @@
 
 ## Projeto
 
-O projeto de estudo consiste em criar uma aplicação em ruby que administra um locadora de veículos. Respeitando o enunciado descrio [aqui](/.gitlab/enunciado.txt). O projeto foi desenvolvido com o intuito de praticar os conceitos de orientação a objetos e testes unitários.
+O projeto de estudo consiste em criar uma aplicação em Ruby que administra uma locadora de veículos. Respeitando o enunciado descrito [aqui](/.gitlab/enunciado.txt). O projeto foi desenvolvido com o intuito de praticar os conceitos de orientação a objetos e testes unitários.
 
 ### Diagrama
 
-Primeiro foi feito um diagrama de classes para entender melhor o problema e como seria a solução. Durante o processo houve algumas alterações de acordo com as necessidades e o melhor entendimento do problema.
+Primeiro foi criado um diagrama de classes para compreender melhor o problema e como seria a solução. Durante o processo houve algumas alterações de acordo com as necessidades e o melhor entendimento do problema.
 
 ![Diagrama](./.gitlab/diagrama.png)
 
@@ -29,7 +30,7 @@ Primeiro foi feito um diagrama de classes para entender melhor o problema e como
 
 ## Objetivos
 
-A missão é criar um sistema gerenciar uma empresa de locação de veículos.
+A missão é criar um sistema para gerenciar uma empresa de locação de veículos.
 
 - Cadastro de Veículos
 
@@ -45,7 +46,7 @@ A missão é criar um sistema gerenciar uma empresa de locação de veículos.
 
 - Reservas
 
-  - Um cliente pode realizar apenas uma reserva simultânea. Um reserva significa que um veiculo será alocado para um determinado cliente em um período.
+  - Um cliente pode realizar apenas uma reserva simultânea. Uma reserva significa que um veiculo será alocado para um determinado cliente em um determinado período.
 
 - Locação
 
@@ -79,25 +80,54 @@ A missão é criar um sistema gerenciar uma empresa de locação de veículos.
 
 ## Considerações importantes
 
+#### Resoluções de problemas
+
+Inicialmente foi pensado na estrutura de Classes necessária, seus relacionamentos e por último suas funcionalidades.
+A implementação das classes no código foi iniciada seguindo a árvore gerada no diagrama, de baixo para cima. Sempre implementando primeiro os arquivos de testes, conforme estrutura descrita no próximo tópico.
+
+8 - Deve ser possível finalizar uma locação.
+9 - Deve ser possível gerar um relatório mensal com o faturamento da empresa.
+
+- Atrelada a resolução do problema 8, foi implementada também a resolução do problema 9.
+  O metodo de finalizar a locação (que pertence a classe Gerenciador), além de enviar o veículo novamente para o estoque também gera o pagamento e envia suas informações para a lista de faturamento, que irá fornecer as informações para gerar o relatório mensal de faturamento da empresa.
+
+10 - Deve ser possível gerar um relatório com a lista de veículos mais queridos pelos clientes.
+
+- A classe Gerenciador também está responsável pelo metodo que resolve esse problema. A classe possui listas que constam os veículos mais locados e repassa essas informações para o metodo que gera o relatório de veículos mais queridos.
+
+11 - Deve ser possível alterar a tabela de preços.
+
+- A solução desse ponto foi implementada utilizando as classes Veículo e Gerenciador. Ao iniciar uma instância de Veículo é obrigatório informar o seu preço. A classe Gerenciador inclui um metodo para alterar o preço de um veículo, onde também são guardadas listas com essas informações, essas listas por suas vez são acessadas pelo metodo de gerar tabela. Sendo assim, na fonte de dados da tabela sempre haverá o preço atual do veículo.
+
+#### Descrição dos testes
+
+Os testes foram implementados por Classes, para cada metodo foram construídos os contextos: "Quando dado parametros válidos" e "Quando dado parametros inválidos". Em alguns metodos mais simples não se fez necessário a divisão por contextos. [Aqui está a lista de testes](./.gitlab/testes.md).
+
+Foi optado por implementar os testes da classe Gerenciador em quatro arquivos diferentes visando a melhor compreensão do código.
+
+Para garantir que todas as linhas de códigos foram cobertas pelos testes foi utilizada a gem [SimpleCov](https://github.com/simplecov-ruby/simplecov). O resultado da análise pode ser verificado [aqui](./coverage/index.html).
+
+![Cobertura dos testes](./.gitlab/cobertura-testes.png)
+
 ### Métodos de impressão
 
 São metodos que imprimem na tela os dados em forma de tabela no terminal.
 
 #### Método de imprimir tabela de faturamento no terminal
 
-Método responsável apenas por imprimir na tela a tabela com os dados gerado pelo método que gera o relatório mensal.
+Método responsável apenas por imprimir na tela a tabela com os dados gerados pelo método que gera o relatório mensal.
 
-![Tabela de faturamento](./.gitlab/faturamento.png)
+![Tabela de faturamento](./.gitlab/faturamento.jpg)
 
 #### Método de imprimir tabela de tabela de preços no terminal
 
-Método responsável apenas por imprimir na tela a tabela com os dados gerado pelo método que gera a tabela de preços.
+Método responsável apenas por imprimir na tela a tabela com os dados gerados pelo método que gera a tabela de preços.
 
 ![Tabela de preços](./.gitlab/precos.png)
 
 #### Método de imprimir de ranking do veículos mais queridos no terminal
 
-Método responsável apenas por imprimir na tela a tabela com os dados gerado pelo método que gera a tabela de preços.
+Método responsável apenas por imprimir na tela a tabela com os dados gerados pelo método que gera a tabela de preços.
 
 ![Ranking de veículos mai alugados](./.gitlab/ranking.png)
 

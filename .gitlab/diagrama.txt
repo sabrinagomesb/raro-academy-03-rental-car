@@ -22,6 +22,7 @@ classDiagram
         pagamentos: Pagamento[]
         faturamento: Hash
         status: Hash
+        Ranking: Hash
 
         cadastra_cliente(Cliente): void
         atualiza_cliente(Cliente, cpf, nome): void
@@ -34,15 +35,17 @@ classDiagram
 
         gera_faturamento()
         gera_veiculos_mais_queridos()
+        imprime_faturamento()
+        imprime_ranking()
     }
 
     class Estoque {
         veiculos: Veiculo[]
         precos: Hash
-        cadastra_veiculo(Veiculo): void
-        atualiza_diaria_veiculo(veiculo, nova_diaria)
-        remove_veiculo(Veiculo): void
         veiculos_disponiveis(data_inicio, data_fim): Veiculo[]
+        cadastra_veiculo(Veiculo): void
+        remove_veiculo(Veiculo): void
+        atualiza_diaria_veiculo(veiculo, nova_diaria)
         gera_precos()
     }
 
