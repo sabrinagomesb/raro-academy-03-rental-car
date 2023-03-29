@@ -1,5 +1,5 @@
 class Estoque
-  attr_accessor :veiculos, :precos
+  attr_reader :veiculos, :precos
 
   def initialize
     @veiculos = []

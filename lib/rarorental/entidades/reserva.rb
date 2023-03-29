@@ -1,7 +1,6 @@
 class Reserva
-  attr_accessor :cliente, :veiculo,
-                :data_inicio, :data_fim
-  attr_reader :preco
+  attr_reader :cliente, :veiculo, :preco,
+              :data_inicio, :data_fim
 
   def initialize(cliente, veiculo, data_inicio, data_fim)
     @cliente = cliente

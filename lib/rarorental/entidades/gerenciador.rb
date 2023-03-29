@@ -1,7 +1,8 @@
 class Gerenciador
-  attr_accessor :estoque, :clientes, :ranking,
-                :pagamentos, :faturamento,
-                :reservas, :locacoes, :status
+  attr_accessor :estoque
+  attr_reader :clientes, :ranking,
+              :pagamentos, :faturamento,
+              :reservas, :locacoes, :status
 
   def initialize
     @clientes = []
