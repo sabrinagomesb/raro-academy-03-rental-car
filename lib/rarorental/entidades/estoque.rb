@@ -14,7 +14,6 @@ class Estoque
     @veiculos.each do |veiculo|
       veiculos_disponiveis << veiculo if veiculo.disponivel?(data_inicio, data_fim)
     end
-
     veiculos_disponiveis
   end
 
@@ -45,10 +44,23 @@ class Estoque
     gera_precos
   end
 
+  def imprime_tabela_precos
+    cabecalho = "| Modelo                                   | Diária Padrão |  Diária Desconto  |\n"
+    divisoria = "|------------------------------------------|---------------|-------------------|\n"
+
+    dados = @precos.map do |key, value|
+      "| #{value[:modelo].ljust(40)} | #{value[:diaria_padrao].to_s.ljust(13)} | #{value[:diaria_desconto].to_s.ljust(17)} |\n"
+    end
+
+    tabela = divisoria + cabecalho + divisoria + dados.join + divisoria
+    print tabela
+  end
+
   private
 
   def gera_precos
-    @veiculos.each do |veiculo|
+    @veiculos.map do |veiculo|
+      @precos[veiculo.placa][:modelo] = "#{veiculo.fabricante} #{veiculo.modelo} - #{veiculo.ano}"
       @precos[veiculo.placa][:diaria_padrao] = veiculo.diaria_padrao
       @precos[veiculo.placa][:diaria_desconto] = veiculo.diaria_desconto
     end
