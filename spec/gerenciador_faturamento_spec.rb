@@ -48,7 +48,7 @@ RSpec.describe "Gerenciador - Faturamento" do
     it "Deve imprimir faturamento" do
       tabela = "|------|-----|-------------------|\n| Ano  | Mes |    Valor Total    |\n|------|-----|-------------------|\n| 2023 | 4   | R$ 5.200,00       |\n| 2023 | 5   | R$ 2.700,00       |\n| 2023 | 10  | R$ 2.000,00       |\n| 2024 | 5   | R$ 1.250,00       |\n|------|-----|-------------------|\n"
 
-      expect(@gerenciador.imprime_faturamento).to eq(tabela)
+      expect { @gerenciador.imprime_faturamento }.to output(tabela).to_stdout
     end
   end
 end

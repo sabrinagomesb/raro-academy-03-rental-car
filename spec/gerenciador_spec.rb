@@ -1,4 +1,4 @@
-RSpec.describe "Gerenciador - Cliente" do
+RSpec.describe "Gerenciador - Reservas e Locações" do
   describe "Cadastra reserva" do
     let(:gerenciador) { Gerenciador.new }
     let(:estoque) { Estoque.new }
