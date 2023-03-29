@@ -73,4 +73,15 @@ RSpec.describe Veiculo do
       end
     end
   end
+
+  describe "Atualiza diarias" do
+    let(:veiculo) { Veiculo.new("CAR-1234", "Fiat", "Mobi", 2020, 100) }
+
+    it "Deve atualizar os preços das diárias" do
+      veiculo.atualiza_diarias(200)
+
+      expect(veiculo.diaria_padrao).to eq(200)
+      expect(veiculo.diaria_desconto).to eq(180)
+    end
+  end
 end

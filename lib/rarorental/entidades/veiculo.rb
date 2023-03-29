@@ -10,7 +10,7 @@ class Veiculo
     @modelo = modelo
     @ano = ano
     @diaria_padrao = diaria_padrao.to_f
-    @diaria_desconto = (diaria_padrao * 0.9).to_f
+    @diaria_desconto = calcula_desconto
     @reservas = []
     @locacoes = []
   end
@@ -22,7 +22,16 @@ class Veiculo
     busca_disponibilidade(@reservas, data_inicio, data_fim)
   end
 
+  def atualiza_diarias(diaria_padrao_nova)
+    @diaria_padrao = diaria_padrao_nova.to_f
+    @diaria_desconto = calcula_desconto
+  end
+
   private
+
+  def calcula_desconto
+    (@diaria_padrao * 0.9).to_f
+  end
 
   def valida(placa)
     raise ErroValidacao.new("Placa deve conter 3 digitos alfanumericos seguidos de hifen e 4 digitos alfanumericos. Ex: CAR-1234") unless placa.match?(/^[[:alnum:]]{3}-[[:alnum:]]{4}$/)

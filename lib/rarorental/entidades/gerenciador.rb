@@ -1,5 +1,6 @@
 class Gerenciador
-  attr_accessor :estoque, :clientes, :pagamentos,
+  attr_accessor :estoque, :clientes,
+                :pagamentos, :faturamento,
                 :reservas, :locacoes, :status
 
   def initialize
@@ -8,6 +9,7 @@ class Gerenciador
     @locacoes = []
     @pagamentos = []
     @status = Hash.new { |hash, key| hash[key] = nil }
+    @faturamento = Hash.new { |hash, key| hash[key] = Hash.new { |hash, key| hash[key] = 0 } }
   end
 
   def cadastra_reserva(reserva)
@@ -55,6 +57,7 @@ class Gerenciador
     pagamento = Pagamento.new(locacao, locacao.data_fim, locacao.preco)
     @pagamentos << pagamento
     pagamento
+    # gera_faturamento
   end
 
   def cadastra_cliente(cliente)
@@ -79,5 +82,10 @@ class Gerenciador
     raise ErroValidacao.new("Cliente possui reserva/locacao, por isso não pode ser excluído da lista de clientes") unless cliente.reservas.empty? && cliente.locacoes.empty?
 
     @clientes.delete(cliente)
+  end
+
+  private
+
+  def gera_faturamento
   end
 end

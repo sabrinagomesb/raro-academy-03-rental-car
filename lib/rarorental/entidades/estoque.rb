@@ -1,8 +1,9 @@
 class Estoque
-  attr_accessor :veiculos
+  attr_accessor :veiculos, :precos
 
   def initialize
     @veiculos = []
+    @precos = Hash.new { |hash, key| hash[key] = Hash.new { |hash, key| hash[key] = 0 } }
   end
 
   def veiculos_disponiveis(data_inicio, data_fim)
@@ -23,6 +24,7 @@ class Estoque
     raise ErroValidacao.new("Veiculo já está cadastrado") if @veiculos.include?(veiculo)
 
     @veiculos << veiculo
+    gera_precos
   end
 
   def remove_veiculo(veiculo)
@@ -31,5 +33,24 @@ class Estoque
     raise ErroValidacao.new("Veículo não está disponível no estoque, por isso não pode ser removido") unless veiculo.reservas.empty? && veiculo.locacoes.empty?
 
     @veiculos.delete(veiculo)
+    gera_precos
+  end
+
+  def atualiza_diaria_veiculo(veiculo, diaria_padrao)
+    busca_veiculo = @veiculos.find { |e| e == veiculo }
+
+    raise ErroValidacao.new("Veículo informado não existe no estoque.") unless busca_veiculo
+
+    busca_veiculo.atualiza_diarias(diaria_padrao)
+    gera_precos
+  end
+
+  private
+
+  def gera_precos
+    @veiculos.each do |veiculo|
+      @precos[veiculo.placa][:diaria_padrao] = veiculo.diaria_padrao
+      @precos[veiculo.placa][:diaria_desconto] = veiculo.diaria_desconto
+    end
   end
 end
