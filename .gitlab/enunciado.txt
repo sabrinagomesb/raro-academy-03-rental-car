@@ -28,29 +28,29 @@ Quando o cliente retira de fato o veículo da loja, a reserva dá origem a loca�
 
 ## Deve ser possível
 
-- [ ] - 1 - Deve ser possível adicionar um novo veículo ao estoque.
-- [ ] - 2 - Deve ser possível remover um veículo do estoque.
-- [ ] - 3 - Deve ser possível incluir um novo cliente no sistema.
-- [ ] - 4 - Deve ser possível realizar uma alteração no nome de um cliente já existente.
-- [ ] - 5 - Deve ser possível buscar quais veículos estarão disponíveis em um determinado período. O resultado da busca deve mostrar o valor que será pago pela reserva respeitando a tabela de preços.
-- [ ] - 6 - Deve ser possível criar uma reserva para um veículo disponível.
-- [ ] - 7 - Deve ser possível transformar uma locação em reserva.
-- [ ] - 8 - Deve ser possível finalizar uma locação.
-- [ ] - 9 - Deve ser possível gerar um relatório mensal com o faturamento da empresa.
-- [ ] - 10 - Deve ser possível gerar um relatório com a lista de veículos mais queridos pelos clientes.
-- [ ] - 11 - Deve ser possível alterar a tabela de preços.
+- [x] 1 - Deve ser possível adicionar um novo veículo ao estoque.
+- [x] 2 - Deve ser possível remover um veículo do estoque.
+- [x] 3 - Deve ser possível incluir um novo cliente no sistema.
+- [x] 4 - Deve ser possível realizar uma alteração no nome de um cliente já existente.
+- [ ] 5 - Deve ser possível buscar quais veículos estarão disponíveis em um determinado período. O resultado da busca deve mostrar o valor que será pago pela reserva respeitando a tabela de preços.
+- [x] 6 - Deve ser possível criar uma reserva para um veículo disponível.
+- [ ] 7 - Deve ser possível transformar uma locação em reserva.
+- [ ] 8 - Deve ser possível finalizar uma locação.
+- [ ] 9 - Deve ser possível gerar um relatório mensal com o faturamento da empresa.
+- [ ] 10 - Deve ser possível gerar um relatório com a lista de veículos mais queridos pelos clientes.
+- [ ] 11 - Deve ser possível alterar a tabela de preços.
 
 ## Não deve ser possível
 
-- [ ] - 1 - Não deve ser possível remover um veículo em locação do estoque.
-- [ ] - 2 - Não deve ser possível remover um cliente da base que já realizou uma reserva ou locação.
-- [ ] - 3 - Não deve ser possível ter mais de uma reserva sobreposta para um mesmo veículo.
-- [ ] - 4 - Não deve ser possível incluir um cliente duplicado na base.
-- [ ] - 5 - Não deve ser possível incluir um veículo duplicado na base.
+- [x] 1 - Não deve ser possível remover um veículo em locação do estoque.
+- [x] 2 - Não deve ser possível remover um cliente da base que já realizou uma reserva ou locação.
+- [x] 3 - Não deve ser possível ter mais de uma reserva sobreposta para um mesmo veículo.
+- [x] 4 - Não deve ser possível incluir um cliente duplicado na base.
+- [ ] 5 - Não deve ser possível incluir um veículo duplicado na base.
 
 ## Deve ser garantido
 
-- [ ] - 1 - Que se houver alteração no preço da tabela, os relatórios anteriores ao período da alteração não mudem os valores.
+- [ ] 1 - Que se houver alteração no preço da tabela, os relatórios anteriores ao período da alteração não mudem os valores.
 
 ## Perguntas e Respostas
 

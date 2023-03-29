@@ -1,9 +1,10 @@
 === DONE ===
 - [X] CLIENTE
-- [X] RESERVA
-- [X] PAGAMENTO
 - [X] VEICULO
+- [X] PAGAMENTO
+- [X] RESERVA
 - [X] ESTOQUE
+
 
 === TO DO ===
 - [ ] GERENCIADOR

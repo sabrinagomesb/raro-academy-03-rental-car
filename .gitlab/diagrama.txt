@@ -15,10 +15,12 @@ classDiagram
 
     class Gerenciador {
         +estoque: Estoque
+
         clientes: Cliente[]
         reservas: Reserva[]
-        locacoes: Reserva[]
-        pagamentos: Pagamento[]
+        locacoes: Locacao[]
+        faturamento: Hash
+        status: Hash
 
         cadastra_cliente(Cliente): void
         atualiza_cliente(Cliente, cpf, nome): void
@@ -29,16 +31,17 @@ classDiagram
         inicia_locacao(Reserva)
         finaliza_locacao(Locacao)
 
-        gera_tabela_precos(): string
-        gera_relatorio_mensal(mes): string
-        gera_veiculos_mais_queridos(): string
+        gera_relatorio_mensal()
+        gera_veiculos_mais_queridos()
     }
 
     class Estoque {
         veiculos: Veiculo[]
+        precos: Hash
         cadastra_veiculo(Veiculo): void
         remove_veiculo(Veiculo): void
         veiculos_disponivels(data_inicio, data_fim): Veiculo[]
+        gera_tabela_precos()
     }
 
     class Cliente {
@@ -56,7 +59,8 @@ classDiagram
         +diaria_padrao: float
         diaria_desconto: float
         reservas: Reservas[]
-        locacao: Locacao[]
+        locacoes: Locacao[]
+        disponivel?(data_inicio, data_fim)
     }
 
     class Pagamento {
@@ -71,13 +75,9 @@ classDiagram
         +data_inicio: dateFormat
         +data_fim: dateFormat
         +preco: float
+        calcula_preco()
     }
 
     class Locacao {
-        +cliente: Cliente
-        +veiculo: Veiculo
-        +data_inicio: dateFormat
-        +data_fim: dateFormat
-        +preco: float
         realiza_pagamento(): Pagamento
     }
